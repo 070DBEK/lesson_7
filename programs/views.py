@@ -7,9 +7,12 @@ def language_list(request):
     return render(request, 'programs/language_list.html', {'languages': languages})
 
 def add_language(request):
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        ProgrammingLanguage.objects.create(title=title, description=description)
+    title = request.POST.get('title')
+    description = request.POST.get('description')
+    if title is not None and description is not None:
+        ProgrammingLanguage.objects.create(
+            title=title,
+            description=description
+        )
         return redirect('language_list')
     return render(request, 'programs/add_language.html')
